@@ -36,21 +36,22 @@ from utils.pdf_utils import pdf_bytes_to_images
 import base64
 from io import BytesIO
 
-# Import NEW features - SHAP/LIME, Compliance, Real-time
+# Import NEW features - Compliance, Real-time
+from utils.compliance import ComplianceManager
+from utils.realtime import RealtimeManager
+
+# Advanced explainability (SHAP/LIME) - try to load, fallback to Grad-CAM only
 try:
     from explainability.shap_explainer import shap_explainer
     from explainability.lime_explainer import lime_explainer
     EXPLAINABILITY_ADVANCED = True
-    print("✓ Advanced explainability (SHAP/LIME) available")
+    print("✅ Advanced explainability (SHAP/LIME) loaded successfully")
 except ImportError as e:
     print(f"⚠️ Advanced explainability not available: {e}")
-    print("  Using Grad-CAM only (core feature still works)")
+    print("  Falling back to Grad-CAM only (core feature still works)")
     shap_explainer = None
     lime_explainer = None
     EXPLAINABILITY_ADVANCED = False
-
-from utils.compliance import ComplianceManager
-from utils.realtime import RealtimeManager
 
 # Configure Tesseract OCR path for Windows
 try:
