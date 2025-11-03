@@ -38,7 +38,16 @@ from io import BytesIO
 
 # Import NEW features - Compliance, Real-time
 from utils.compliance import ComplianceManager
-from utils.realtime import RealtimeManager
+
+# Real-time features (SocketIO) - optional
+try:
+    from utils.realtime import RealtimeManager
+    REALTIME_AVAILABLE = True
+    print("✅ Real-time WebSocket support available")
+except ImportError as e:
+    print(f"ℹ️ Real-time features disabled (missing flask-socketio)")
+    RealtimeManager = None
+    REALTIME_AVAILABLE = False
 
 # Advanced explainability (SHAP/LIME) - DISABLED for Render free tier
 # These require scipy which needs Fortran compiler (not available on free tier)
@@ -91,8 +100,13 @@ db = firestore.client() if firebase_admin._apps else None
 # Initialize Compliance Manager
 compliance_manager = ComplianceManager(db=db)
 
-# Initialize Real-time Manager (WebSocket support)
-realtime_manager = RealtimeManager(app=app, db=db)
+# Initialize Real-time Manager (WebSocket support) - only if available
+if REALTIME_AVAILABLE and RealtimeManager:
+    realtime_manager = RealtimeManager(app=app, db=db)
+    print("✅ Real-time manager initialized")
+else:
+    realtime_manager = None
+    print("ℹ️ Running without real-time WebSocket features")
 
 # Initialize AI Models (lazy loading for faster startup)
 ocr_model = None
@@ -1624,6 +1638,9 @@ def detect_anomaly_endpoint():
 def get_realtime_stats():
     """Get real-time dashboard statistics"""
     try:
+        if not realtime_manager:
+            return jsonify({'error': 'Real-time features not available'}), 503
+        
         stats = realtime_manager._get_dashboard_stats()
         return jsonify(stats), 200
     except Exception as e:
