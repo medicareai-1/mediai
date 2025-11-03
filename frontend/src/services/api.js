@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Backend API URL - Update this with your Render deployment URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Backend API URL - Production: Render, Development: localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

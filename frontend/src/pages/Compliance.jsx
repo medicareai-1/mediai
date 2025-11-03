@@ -19,7 +19,7 @@ const Compliance = () => {
       params.append('limit', '100');
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/compliance/audit-logs?${params}`
+        `${import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com'}/api/compliance/audit-logs?${params}`
       );
       const data = await response.json();
       setAuditLogs(data.audit_logs || []);
@@ -38,7 +38,7 @@ const Compliance = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/compliance/export-patient-data`,
+        `${import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com'}/api/compliance/export-patient-data`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -84,7 +84,7 @@ const Compliance = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/compliance/delete-patient-data`,
+        `${import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com'}/api/compliance/delete-patient-data`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -114,7 +114,7 @@ const Compliance = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/compliance/detect-anomaly`,
+        `${import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com'}/api/compliance/detect-anomaly`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

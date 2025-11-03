@@ -24,7 +24,7 @@ const ExplainabilityViewer = ({ analysisData, analysisId }) => {
     setError(null);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/explainability/generate`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://mediai-t6oo.onrender.com'}/api/explainability/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
