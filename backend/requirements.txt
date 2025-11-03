@@ -8,7 +8,6 @@ gunicorn
 firebase-admin
 
 # OCR & Vision
-easyocr
 pytesseract
 google-generativeai
 
@@ -21,7 +20,7 @@ torchvision
 
 # Image Processing
 Pillow
-opencv-python
+opencv-python-headless
 scikit-image
 
 # PDF Processing
@@ -34,8 +33,6 @@ numpy
 scipy
 
 # Explainability
-shap
-lime
 matplotlib
 
 # Security & Compliance
