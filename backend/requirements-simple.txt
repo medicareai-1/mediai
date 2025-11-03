@@ -1,0 +1,25 @@
+# Simplified requirements that work with Python 3.13
+Flask==3.0.0
+flask-cors==4.0.0
+firebase-admin==6.5.0
+Pillow==10.4.0
+numpy==2.0.2
+requests==2.32.3
+gunicorn==23.0.0
+python-dotenv==1.0.0
+
+# Multi-Engine OCR Architecture (BEST accuracy!)
+# 🌟 Gemini Vision → EasyOCR → Tesseract (fallback chain)
+
+# 1. Gemini Vision - BEST overall (85-95% accuracy) ⭐ PRIMARY
+google-generativeai==0.6.0  # v1 API support for new models
+
+# 2. EasyOCR - Good for handwriting (60-75% accuracy) - Fallback #1
+# pip install easyocr (already installed)
+
+# 3. Tesseract - Fast for printed text (90-95% printed, 40-50% handwritten) - Fallback #2
+pytesseract==0.3.10
+
+# Additional Features (FREE!)
+pdf2image==1.17.0  # PDF support
+pydicom==3.0.1  # DICOM medical imaging format

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: mediscan-ai-backend
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r backend/requirements.txt && python -m spacy download en_core_web_sm
+    startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: PORT
+        value: 5000
+      - key: FIREBASE_CONFIG
+        sync: false
+      - key: FIREBASE_STORAGE_BUCKET
+        sync: false
+

@@ -1,0 +1,46 @@
+# Web Framework
+Flask
+flask-cors
+flask-socketio
+gunicorn
+
+# Firebase
+firebase-admin
+
+# OCR & Vision
+easyocr
+pytesseract
+google-generativeai
+
+# NLP
+spacy
+
+# Deep Learning
+torch
+torchvision
+
+# Image Processing
+Pillow
+opencv-python
+scikit-image
+
+# PDF Processing
+pymupdf
+pdf2image
+
+# Machine Learning
+scikit-learn
+numpy
+scipy
+
+# Explainability
+shap
+lime
+matplotlib
+
+# Security & Compliance
+cryptography
+
+# Utilities
+requests
+python-dotenv

@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // ⚠️ FIREBASE STORAGE NOT NEEDED!
+    // This project uses base64 encoding to store images in Firestore
+    // No need to enable Firebase Storage or deploy these rules
+    
+    // Default deny all (Storage not used)
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

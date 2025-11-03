@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // Patients collection
+    match /patients/{patientId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && isOwner(resource.data.user_id);
+    }
+    
+    // Analyses collection
+    match /analyses/{analysisId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && isOwner(resource.data.user_id);
+    }
+    
+    // Prescriptions collection
+    match /prescriptions/{prescriptionId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Image analyses collection
+    match /image_analyses/{imageAnalysisId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
+
