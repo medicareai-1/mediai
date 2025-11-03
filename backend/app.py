@@ -78,7 +78,17 @@ except ImportError:
     print("⚠ pytesseract not installed")
 
 app = Flask(__name__)
-CORS(app)
+# Enable CORS for all routes and origins (production-ready)
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "expose_headers": ["Content-Type"],
+        "supports_credentials": False,
+        "max_age": 3600
+    }
+})
 
 # Initialize Firebase Admin SDK (No Storage needed - using base64)
 try:
