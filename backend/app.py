@@ -37,8 +37,18 @@ import base64
 from io import BytesIO
 
 # Import NEW features - SHAP/LIME, Compliance, Real-time
-from explainability.shap_explainer import shap_explainer
-from explainability.lime_explainer import lime_explainer
+try:
+    from explainability.shap_explainer import shap_explainer
+    from explainability.lime_explainer import lime_explainer
+    EXPLAINABILITY_ADVANCED = True
+    print("✓ Advanced explainability (SHAP/LIME) available")
+except ImportError as e:
+    print(f"⚠️ Advanced explainability not available: {e}")
+    print("  Using Grad-CAM only (core feature still works)")
+    shap_explainer = None
+    lime_explainer = None
+    EXPLAINABILITY_ADVANCED = False
+
 from utils.compliance import ComplianceManager
 from utils.realtime import RealtimeManager
 
@@ -1660,8 +1670,8 @@ def generate_explainability():
         
         result = {}
         
-        # Generate SHAP
-        if explainability_type in ['shap', 'all']:
+        # Generate SHAP (only if available)
+        if explainability_type in ['shap', 'all'] and EXPLAINABILITY_ADVANCED and shap_explainer:
             print("Generating SHAP...")
             shap_result = shap_explainer.explain(image, cnn.model, prediction_class, num_samples=100)
             result['shap'] = {
@@ -1669,9 +1679,12 @@ def generate_explainability():
                 'importance_scores': shap_result.get('importance_scores'),
                 'method': shap_result.get('method')
             }
+        elif explainability_type in ['shap', 'all']:
+            print("⚠️ SHAP not available (missing dependencies)")
+            result['shap'] = {'error': 'SHAP not available - install shap and matplotlib'}
         
-        # Generate LIME
-        if explainability_type in ['lime', 'all']:
+        # Generate LIME (only if available)
+        if explainability_type in ['lime', 'all'] and EXPLAINABILITY_ADVANCED and lime_explainer:
             print("Generating LIME...")
             lime_result = lime_explainer.explain(image, cnn.model, prediction_class, num_samples=200, num_features=10)
             result['lime'] = {
@@ -1680,6 +1693,9 @@ def generate_explainability():
                 'feature_weights': lime_result.get('feature_weights'),
                 'method': lime_result.get('method')
             }
+        elif explainability_type in ['lime', 'all']:
+            print("⚠️ LIME not available (missing dependencies)")
+            result['lime'] = {'error': 'LIME not available - install lime, scikit-image and matplotlib'}
         
         # Log the explainability generation
         if compliance_manager:
