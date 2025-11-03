@@ -40,18 +40,14 @@ from io import BytesIO
 from utils.compliance import ComplianceManager
 from utils.realtime import RealtimeManager
 
-# Advanced explainability (SHAP/LIME) - try to load, fallback to Grad-CAM only
-try:
-    from explainability.shap_explainer import shap_explainer
-    from explainability.lime_explainer import lime_explainer
-    EXPLAINABILITY_ADVANCED = True
-    print("✅ Advanced explainability (SHAP/LIME) loaded successfully")
-except ImportError as e:
-    print(f"⚠️ Advanced explainability not available: {e}")
-    print("  Falling back to Grad-CAM only (core feature still works)")
-    shap_explainer = None
-    lime_explainer = None
-    EXPLAINABILITY_ADVANCED = False
+# Advanced explainability (SHAP/LIME) - DISABLED for Render free tier
+# These require scipy which needs Fortran compiler (not available on free tier)
+# Grad-CAM provides excellent visualization and works perfectly!
+EXPLAINABILITY_ADVANCED = False
+shap_explainer = None
+lime_explainer = None
+print("ℹ️ Using Grad-CAM for explainability (SHAP/LIME disabled - requires scipy/Fortran)")
+print("  Grad-CAM provides excellent heatmap visualizations! ✅")
 
 # Configure Tesseract OCR path for Windows
 try:
