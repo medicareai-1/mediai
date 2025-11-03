@@ -1,43 +1,35 @@
 # Web Framework
-Flask
-flask-cors
-flask-socketio
-gunicorn
+Flask>=2.3.0
+flask-cors>=4.0.0
+gunicorn>=21.0.0
 
 # Firebase
-firebase-admin
+firebase-admin>=6.0.0
 
 # OCR & Vision
-pytesseract
-google-generativeai
+pytesseract>=0.3.10
+google-generativeai>=0.3.0
 
 # NLP
-spacy
+spacy>=3.5.0
 
-# Deep Learning
-torch
-torchvision
+# Deep Learning (CPU only - smaller & faster)
+torch>=2.0.0
+torchvision>=0.15.0
 
 # Image Processing
-Pillow
-opencv-python-headless
-scikit-image
+Pillow>=10.0.0
+opencv-python-headless>=4.8.0
 
 # PDF Processing
-pymupdf
-pdf2image
+pymupdf>=1.23.0
 
 # Machine Learning
-scikit-learn
-numpy
-scipy
-
-# Explainability
-matplotlib
-
-# Security & Compliance
-cryptography
+scikit-learn>=1.3.0
+numpy>=1.24.0,<2.0.0
+scipy>=1.11.0
 
 # Utilities
-requests
-python-dotenv
+requests>=2.31.0
+python-dotenv>=1.0.0
+cryptography>=41.0.0
