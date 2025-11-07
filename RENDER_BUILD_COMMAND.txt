@@ -1,6 +1,0 @@
-# Updated Render Build Command (No spaCy)
-
-pip install -r backend/requirements.txt
-
-# That's it! No spacy model download needed
-
